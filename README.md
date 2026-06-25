@@ -6,8 +6,8 @@ Fast, **offline** Asante Twi text-to-speech that runs anywhere — Python, web (
 - **Vocoder:** Vocos universal (≈26× faster than HiFi-GAN on CPU).
 - **Runtime:** sherpa-onnx — CPU, ~2× realtime, no PyTorch. Single voice (no cloning).
 
-**Live demo:** https://huggingface.co/spaces/michsethowusu/nano-twi
-**Model files:** https://huggingface.co/michsethowusu/matcha-twi (folder `sherpa-onnx/`)
+**Live demo:** https://huggingface.co/spaces/ghananlpcommunity/nano-twi
+**Model files:** https://huggingface.co/ghananlpcommunity/nano-twi (folder `sherpa-onnx/`)
 
 ## What's in the model bundle
 | File | Role |
@@ -32,7 +32,7 @@ One model + one script — that's all.
 pip install -U sherpa-onnx soundfile "huggingface_hub[cli]"
 
 # 2. download the model bundle into ./model
-hf download michsethowusu/matcha-twi --include "sherpa-onnx/*" --local-dir ./model
+hf download ghananlpcommunity/nano-twi --include "sherpa-onnx/*" --local-dir ./model
 
 # 3. grab the one-file synthesizer and speak
 curl -O https://raw.githubusercontent.com/michsethowusu/nano-twi/main/examples/python/synthesize.py
