@@ -30,7 +30,7 @@ One model + one script — that's all.
 
 ```bash
 # 1. install
-pip install -U sherpa-onnx soundfile "huggingface_hub[cli]"
+pip install -U sherpa-onnx "huggingface_hub[cli]"
 
 # 2. download the model bundle into ./model
 hf download ghananlpcommunity/nano-twi --include "sherpa-onnx/*" --local-dir ./model

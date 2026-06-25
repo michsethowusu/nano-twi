@@ -6,9 +6,20 @@ Usage:
         --text "Awurade ne me hwɛfoɔ." --out twi.wav
 """
 import argparse
+import array
+import wave
 
 import sherpa_onnx
-import soundfile as sf
+
+
+def write_wav(path, samples, sample_rate):
+    """Write float samples [-1, 1] as 16-bit mono WAV using only the stdlib (no soundfile)."""
+    pcm = array.array("h", (int(max(-1.0, min(1.0, float(s))) * 32767) for s in samples))
+    with wave.open(path, "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(sample_rate)
+        w.writeframes(pcm.tobytes())
 
 
 def main():
@@ -42,7 +53,7 @@ def main():
         )
     )
     audio = tts.generate(a.text, sid=0, speed=a.speed)
-    sf.write(a.out, audio.samples, audio.sample_rate)
+    write_wav(a.out, audio.samples, audio.sample_rate)
     print(f"Wrote {a.out}  ({len(audio.samples) / audio.sample_rate:.2f}s @ {audio.sample_rate} Hz)")
 
 
