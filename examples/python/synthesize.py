@@ -16,7 +16,7 @@ def main():
     p.add_argument("--model-dir", required=True, help="folder with the sherpa-onnx bundle")
     p.add_argument("--text", required=True)
     p.add_argument("--out", default="twi.wav")
-    p.add_argument("--acoustic", default="twi_ep045_steps10.onnx")
+    p.add_argument("--acoustic", default="twi_ep045_steps4.onnx")
     p.add_argument("--speed", type=float, default=1.0, help="1.0 = normal; >1 faster")
     p.add_argument("--noise-scale", type=float, default=0.667)
     p.add_argument("--num-threads", type=int, default=2)

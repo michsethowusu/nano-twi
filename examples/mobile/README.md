@@ -3,7 +3,7 @@
 sherpa-onnx has native, offline TTS on Android (Kotlin/Java) and iOS (Swift), plus Flutter/React-Native bindings. You drop the nano-twi model files into the sample app's assets and point the config at them.
 
 ## Model assets (from `model/sherpa-onnx/`)
-- `twi_ep045_steps10.onnx`  (acoustic)
+- `twi_ep045_steps4.onnx`  (acoustic)
 - `vocos-22khz-univ.onnx`   (vocoder)
 - `tokens.txt`
 - `espeak-ng-data/`         (whole folder)
@@ -17,7 +17,7 @@ sherpa-onnx has native, offline TTS on Android (Kotlin/Java) and iOS (Swift), pl
    val config = OfflineTtsConfig(
        model = OfflineTtsModelConfig(
            matcha = OfflineTtsMatchaModelConfig(
-               acousticModel = "twi_ep045_steps10.onnx",
+               acousticModel = "twi_ep045_steps4.onnx",
                vocoder = "vocos-22khz-univ.onnx",
                tokens = "tokens.txt",
                dataDir = "espeak-ng-data",

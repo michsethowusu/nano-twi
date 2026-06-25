@@ -5,7 +5,7 @@ sherpa-onnx ships a WebAssembly TTS build that runs **entirely in the browser** 
 ## Steps
 
 1. **Get the model** (see repo root `download_model.sh`) — you need from `model/sherpa-onnx/`:
-   `twi_ep045_steps10.onnx`, `vocos-22khz-univ.onnx`, `tokens.txt`, and `espeak-ng-data/`.
+   `twi_ep045_steps4.onnx`, `vocos-22khz-univ.onnx`, `tokens.txt`, and `espeak-ng-data/`.
 
 2. **Build the sherpa-onnx WASM TTS app.** Follow the official guide:
    https://k2-fsa.github.io/sherpa/onnx/tts/wasm/index.html
@@ -18,7 +18,7 @@ sherpa-onnx ships a WebAssembly TTS build that runs **entirely in the browser** 
    ```
 
 3. **Point the build at a Matcha model.** In `wasm/tts/assets/` the build script expects model
-   filenames; set them to ours (acoustic = `twi_ep045_steps10.onnx`, vocoder = `vocos-22khz-univ.onnx`,
+   filenames; set them to ours (acoustic = `twi_ep045_steps4.onnx`, vocoder = `vocos-22khz-univ.onnx`,
    tokens = `tokens.txt`, and the `espeak-ng-data/` dir). Edit `build-wasm-simd-tts.sh` /
    `sherpa-onnx-wasm-main-tts.js` model paths accordingly (matcha acoustic + vocoder + data-dir).
 

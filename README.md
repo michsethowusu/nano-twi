@@ -12,12 +12,16 @@ Fast, **offline** Asante Twi text-to-speech that runs anywhere — Python, web (
 ## What's in the model bundle
 | File | Role |
 |------|------|
-| `twi_ep045_steps10.onnx` | Matcha acoustic model (text → mel), 10 ODE steps |
+| `twi_ep045_steps4.onnx` | Matcha acoustic model — **default**, 4 ODE steps (~4× realtime on CPU), best quality |
+| `twi_ep045_steps2.onnx` | Matcha acoustic model — **fast** option, 2 ODE steps (~11× realtime), *some quality loss* |
 | `vocos-22khz-univ.onnx` | Vocos vocoder (mel → audio) |
 | `tokens.txt` | phoneme → id table |
 | `espeak-ng-data/` | espeak-ng data incl. the `lfn` voice (phonemization) |
 
-(Epochs 41–44 are also published if you want to A/B different checkpoints.)
+**Which acoustic model?** Use `twi_ep045_steps4.onnx` by default. Switch to `twi_ep045_steps2.onnx`
+when you need maximum speed / lowest latency (e.g. on weak devices) and can accept a small drop in
+clarity. Everything else (vocoder, tokens, espeak data) is shared — just swap the `--matcha-acoustic-model`.
+
 
 ## 1. Download the model
 ```bash
@@ -36,7 +40,7 @@ python examples/python/synthesize.py --model-dir ./model/sherpa-onnx \
 See [`examples/python/`](./examples/python). Or the zero-Python CLI:
 ```bash
 sherpa-onnx-offline-tts \
-  --matcha-acoustic-model=./model/sherpa-onnx/twi_ep045_steps10.onnx \
+  --matcha-acoustic-model=./model/sherpa-onnx/twi_ep045_steps4.onnx \
   --matcha-vocoder=./model/sherpa-onnx/vocos-22khz-univ.onnx \
   --matcha-tokens=./model/sherpa-onnx/tokens.txt \
   --matcha-data-dir=./model/sherpa-onnx/espeak-ng-data \
