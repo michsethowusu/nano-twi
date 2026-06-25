@@ -32,9 +32,10 @@ Inference needs just **one** pip package — `sherpa-onnx`. The model is a singl
 # 1. install (only sherpa-onnx)
 pip install -U sherpa-onnx
 
-# 2. download + extract the model bundle (standard .tar.gz — nothing extra needed)
-curl -L https://huggingface.co/ghananlpcommunity/nano-twi/resolve/main/nano-twi-sherpa-onnx.tar.gz | tar xz
-#   -> ./nano-twi/  (both acoustic models, vocoder, tokens.txt, espeak-ng-data/)
+# 2. download + unzip the model bundle (from GitHub Releases)
+curl -L -o nano-twi.zip https://github.com/michsethowusu/nano-twi/releases/download/v1.0/nano-twi-sherpa-onnx.zip
+unzip nano-twi.zip      # -> ./nano-twi/  (both models, vocoder, tokens.txt, espeak-ng-data/)
+#   no unzip installed? use the Python stdlib:  python3 -m zipfile -e nano-twi.zip .
 
 # 3. grab the one-file synthesizer and speak
 curl -O https://raw.githubusercontent.com/michsethowusu/nano-twi/main/examples/python/synthesize.py
