@@ -25,34 +25,26 @@ clarity. Everything else (vocoder, tokens, espeak data) is shared — just swap 
 
 ## Quick start (no clone needed)
 
-```bash
-# 1. install (sherpa-onnx ships the CLI; hf downloads the model)
-pip install -U sherpa-onnx "huggingface_hub[cli]"
+One model + one script — that's all.
 
-# 2. download the model bundle (~150 MB) into ./model
+```bash
+# 1. install
+pip install -U sherpa-onnx soundfile "huggingface_hub[cli]"
+
+# 2. download the model bundle into ./model
 hf download michsethowusu/matcha-twi --include "sherpa-onnx/*" --local-dir ./model
 
-# 3. speak
-sherpa-onnx-offline-tts \
-  --matcha-acoustic-model=./model/sherpa-onnx/twi_ep045_steps4.onnx \
-  --matcha-vocoder=./model/sherpa-onnx/vocos-22khz-univ.onnx \
-  --matcha-tokens=./model/sherpa-onnx/tokens.txt \
-  --matcha-data-dir=./model/sherpa-onnx/espeak-ng-data \
-  --matcha-noise-scale=0.667 --num-threads=2 \
-  --output-filename=twi.wav \
-  "Awurade ne me hwɛfoɔ, biribiara renhia me."
-```
-
-That's it — no files to clone; `sherpa-onnx-offline-tts` comes with the pip package.
-For the **fast** (lower-quality) model, swap `twi_ep045_steps4.onnx` → `twi_ep045_steps2.onnx`.
-
-### Prefer Python? Grab one file
-```bash
+# 3. grab the one-file synthesizer and speak
 curl -O https://raw.githubusercontent.com/michsethowusu/nano-twi/main/examples/python/synthesize.py
-pip install soundfile
 python3 synthesize.py --model-dir ./model/sherpa-onnx \
-  --text "Awurade ne me hwɛfoɔ." --out twi.wav
+  --text "Awurade ne me hwɛfoɔ, biribiara renhia me." --out twi.wav
 ```
+
+For the **fast** (lower-quality) model, add `--acoustic twi_ep045_steps2.onnx`.
+
+> Uses the sherpa-onnx **Python API** (stable across versions). The standalone
+> `sherpa-onnx-offline-tts` command-line tool was removed from the pip package in
+> sherpa-onnx ≥ 1.13, so the one-file script above is the simplest reliable path.
 
 ## Integration examples
 - **Python** — [`examples/python/`](./examples/python)
