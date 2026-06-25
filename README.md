@@ -5,8 +5,9 @@ Fast, **offline** Asante Twi text-to-speech that runs anywhere — Python, web (
 - **Acoustic model:** [Matcha-TTS](https://github.com/shivammehta25/Matcha-TTS) (epoch 45), finetuned from English LJSpeech, phonemized with the espeak-ng `lfn` voice.
 - **Vocoder:** Vocos universal (≈26× faster than HiFi-GAN on CPU).
 - **Runtime:** sherpa-onnx — CPU, ~2× realtime, no PyTorch. Single voice (no cloning).
+- **Long-text robustness:** because Matcha is **non-autoregressive**, it stays stable and natural across **whole paragraphs** — no drift, repeats, or run-on artifacts that plague autoregressive TTS on long input. **Hear it on paragraph-length (8–35 sentence) Twi samples in the [live demo](https://huggingface.co/spaces/ghananlpcommunity/nano-twi).**
 
-**Live demo:** https://huggingface.co/spaces/ghananlpcommunity/nano-twi
+**Live demo (incl. long-text samples):** https://huggingface.co/spaces/ghananlpcommunity/nano-twi
 **Model files:** https://huggingface.co/ghananlpcommunity/nano-twi (folder `sherpa-onnx/`)
 
 ## What's in the model bundle
