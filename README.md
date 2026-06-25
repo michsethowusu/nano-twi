@@ -23,32 +23,38 @@ when you need maximum speed / lowest latency (e.g. on weak devices) and can acce
 clarity. Everything else (vocoder, tokens, espeak data) is shared — just swap the `--matcha-acoustic-model`.
 
 
-## 1. Download the model
-```bash
-pip install -U "huggingface_hub[cli]"
-hf download michsethowusu/matcha-twi --include "sherpa-onnx/*" --local-dir ./model
-# files land in ./model/sherpa-onnx/
-```
-Or just run [`download_model.sh`](./download_model.sh).
+## Quick start (no clone needed)
 
-## 2. Quick start (Python)
 ```bash
-pip install sherpa-onnx soundfile
-python examples/python/synthesize.py --model-dir ./model/sherpa-onnx \
-  --text "Awurade ne me hwɛfoɔ, biribiara renhia me." --out twi.wav
-```
-See [`examples/python/`](./examples/python). Or the zero-Python CLI:
-```bash
+# 1. install (sherpa-onnx ships the CLI; hf downloads the model)
+pip install -U sherpa-onnx "huggingface_hub[cli]"
+
+# 2. download the model bundle (~150 MB) into ./model
+hf download michsethowusu/matcha-twi --include "sherpa-onnx/*" --local-dir ./model
+
+# 3. speak
 sherpa-onnx-offline-tts \
   --matcha-acoustic-model=./model/sherpa-onnx/twi_ep045_steps4.onnx \
   --matcha-vocoder=./model/sherpa-onnx/vocos-22khz-univ.onnx \
   --matcha-tokens=./model/sherpa-onnx/tokens.txt \
   --matcha-data-dir=./model/sherpa-onnx/espeak-ng-data \
+  --matcha-noise-scale=0.667 --num-threads=2 \
   --output-filename=twi.wav \
-  "Awurade ne me hwɛfoɔ."
+  "Awurade ne me hwɛfoɔ, biribiara renhia me."
 ```
 
-## 3. Integration examples
+That's it — no files to clone; `sherpa-onnx-offline-tts` comes with the pip package.
+For the **fast** (lower-quality) model, swap `twi_ep045_steps4.onnx` → `twi_ep045_steps2.onnx`.
+
+### Prefer Python? Grab one file
+```bash
+curl -O https://raw.githubusercontent.com/michsethowusu/nano-twi/main/examples/python/synthesize.py
+pip install soundfile
+python3 synthesize.py --model-dir ./model/sherpa-onnx \
+  --text "Awurade ne me hwɛfoɔ." --out twi.wav
+```
+
+## Integration examples
 - **Python** — [`examples/python/`](./examples/python)
 - **Web (browser, WASM)** — [`examples/web/`](./examples/web)
 - **Mobile (Android / iOS)** — [`examples/mobile/`](./examples/mobile)
