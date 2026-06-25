@@ -4,7 +4,9 @@ sherpa-onnx ships a WebAssembly TTS build that runs **entirely in the browser** 
 
 ## Steps
 
-1. **Get the model** (see repo root `download_model.sh`) — you need from `model/sherpa-onnx/`:
+1. **Get the model** — on any machine, run
+   `hf download michsethowusu/matcha-twi --include "sherpa-onnx/*" --local-dir ./model`
+   (`pip install -U "huggingface_hub[cli]"` first). You need, from `model/sherpa-onnx/`:
    `twi_ep045_steps4.onnx`, `vocos-22khz-univ.onnx`, `tokens.txt`, and `espeak-ng-data/`.
 
 2. **Build the sherpa-onnx WASM TTS app.** Follow the official guide:
