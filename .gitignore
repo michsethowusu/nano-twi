@@ -1,0 +1,6 @@
+model/
+*.wav
+*.onnx
+__pycache__/
+*.pyc
+.DS_Store
