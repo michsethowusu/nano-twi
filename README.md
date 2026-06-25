@@ -36,11 +36,17 @@ hf download michsethowusu/matcha-twi --include "sherpa-onnx/*" --local-dir ./mod
 
 # 3. grab the one-file synthesizer and speak
 curl -O https://raw.githubusercontent.com/michsethowusu/nano-twi/main/examples/python/synthesize.py
+
+# default = 4-step model (best quality):
 python3 synthesize.py --model-dir ./model/sherpa-onnx \
   --text "Awurade ne me hwɛfoɔ, biribiara renhia me." --out twi.wav
+
+# fast = 2-step model (lower quality) — pick the model with --acoustic:
+python3 synthesize.py --model-dir ./model/sherpa-onnx --acoustic twi_ep045_steps2.onnx \
+  --text "Awurade ne me hwɛfoɔ, biribiara renhia me." --out twi_fast.wav
 ```
 
-For the **fast** (lower-quality) model, add `--acoustic twi_ep045_steps2.onnx`.
+The acoustic model is chosen with **`--acoustic`** (default `twi_ep045_steps4.onnx`); everything else (vocoder, tokens, espeak data) is shared.
 
 > Uses the sherpa-onnx **Python API** (stable across versions). The standalone
 > `sherpa-onnx-offline-tts` command-line tool was removed from the pip package in
