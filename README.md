@@ -1,4 +1,4 @@
-# nano-twi 🗣️
+# nano-twi
 
 Fast, **offline** Asante Twi text-to-speech that runs anywhere — Python, web (WASM), and mobile (Android/iOS) — powered by [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx).
 
@@ -26,7 +26,7 @@ clarity. Everything else (vocoder, tokens, espeak data) is shared — just swap 
 ## 1. Download the model
 ```bash
 pip install -U "huggingface_hub[cli]"
-huggingface-cli download michsethowusu/matcha-twi --include "sherpa-onnx/*" --local-dir ./model
+hf download michsethowusu/matcha-twi --include "sherpa-onnx/*" --local-dir ./model
 # files land in ./model/sherpa-onnx/
 ```
 Or just run [`download_model.sh`](./download_model.sh).
