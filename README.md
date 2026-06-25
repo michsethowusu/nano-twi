@@ -24,30 +24,40 @@ when you need maximum speed / lowest latency (e.g. on weak devices) and can acce
 clarity. Everything else (vocoder, tokens, espeak data) is shared — just swap the `--matcha-acoustic-model`.
 
 
-## Quick start (no clone needed)
+## Quick start (no clone, no special tools)
 
-One model + one script — that's all.
+Inference needs just **one** pip package — `sherpa-onnx`. The model is a single `curl` + `tar`.
 
 ```bash
-# 1. install
-pip install -U sherpa-onnx "huggingface_hub[cli]"
+# 1. install (only sherpa-onnx)
+pip install -U sherpa-onnx
 
-# 2. download the model bundle into ./model
-hf download ghananlpcommunity/nano-twi --include "sherpa-onnx/*" --local-dir ./model
+# 2. download + extract the model bundle (standard .tar.gz — nothing extra needed)
+curl -L https://huggingface.co/ghananlpcommunity/nano-twi/resolve/main/nano-twi-sherpa-onnx.tar.gz | tar xz
+#   -> ./nano-twi/  (both acoustic models, vocoder, tokens.txt, espeak-ng-data/)
 
 # 3. grab the one-file synthesizer and speak
 curl -O https://raw.githubusercontent.com/michsethowusu/nano-twi/main/examples/python/synthesize.py
-
-# default = 4-step model (best quality):
-python3 synthesize.py --model-dir ./model/sherpa-onnx \
+python3 synthesize.py --model-dir ./nano-twi \
   --text "Awurade ne me hwɛfoɔ, biribiara renhia me." --out twi.wav
 
-# fast = 2-step model (lower quality) — pick the model with --acoustic:
-python3 synthesize.py --model-dir ./model/sherpa-onnx --acoustic twi_ep045_steps2.onnx \
+# fast (2-step) model — pick it with --acoustic:
+python3 synthesize.py --model-dir ./nano-twi --acoustic twi_ep045_steps2.onnx \
   --text "Awurade ne me hwɛfoɔ, biribiara renhia me." --out twi_fast.wav
 ```
 
-The acoustic model is chosen with **`--acoustic`** (default `twi_ep045_steps4.onnx`); everything else (vocoder, tokens, espeak data) is shared.
+The acoustic model is chosen with **`--acoustic`** (default `twi_ep045_steps4.onnx`); the vocoder, tokens, and espeak data are shared. `synthesize.py` writes the WAV with the Python **stdlib** — no `soundfile` or other deps.
+
+<details><summary>Alternative: fetch individual files with the <code>hf</code> CLI</summary>
+
+```bash
+pip install -U "huggingface_hub[cli]"
+hf download ghananlpcommunity/nano-twi --include "sherpa-onnx/*" --local-dir ./model
+# then use  --model-dir ./model/sherpa-onnx
+```
+Every file is also directly curl-able, e.g.
+`https://huggingface.co/ghananlpcommunity/nano-twi/resolve/main/sherpa-onnx/twi_ep045_steps4.onnx`
+</details>
 
 > Uses the sherpa-onnx **Python API** (stable across versions). The standalone
 > `sherpa-onnx-offline-tts` command-line tool was removed from the pip package in
